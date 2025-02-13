@@ -18,6 +18,10 @@ export class CartService {
     });
   }
 
+  findCartItem(productId: string): CartItem | undefined {
+    const currentCart = this.cartItems.getValue();
+    return currentCart.find(item => item.product.id === productId);
+  }
   getCartItems(): Observable<CartItem[]> {
     return this.cartItems.asObservable();
   }
@@ -37,19 +41,43 @@ export class CartService {
     this.cartItems.next([...currentItems]);
   }
 
+  // removeFromCart(productId: string): void {
+  //   const currentItems = this.cartItems.getValue();
+  //   this.cartItems.next(currentItems.filter(item => item.product.id !== productId));
+  // }
+
+  // handle remove from cart
   removeFromCart(productId: string): void {
     const currentItems = this.cartItems.getValue();
-    this.cartItems.next(currentItems.filter(item => item.product.id !== productId));
+    const itemIndex = currentItems.findIndex(item => item.product.id === productId);
+
+    if (itemIndex!== -1) {
+      currentItems.splice(itemIndex, 1);
+      this.cartItems.next([...currentItems]);
+    }
   }
+
+  // updateQuantity(productId: string, quantity: number): void {
+  //   const currentItems = this.cartItems.getValue();
+  //   const itemIndex = currentItems.findIndex(item => item.product.id === productId);
+
+  //   if (itemIndex !== -1) {
+  //     currentItems[itemIndex].quantity = quantity;
+  //     this.cartItems.next([...currentItems]);
+  //   }
+  // }
+
+  // handle update quantity 
 
   updateQuantity(productId: string, quantity: number): void {
     const currentItems = this.cartItems.getValue();
     const itemIndex = currentItems.findIndex(item => item.product.id === productId);
 
-    if (itemIndex !== -1) {
+    if (itemIndex!== -1) {
       currentItems[itemIndex].quantity = quantity;
       this.cartItems.next([...currentItems]);
     }
+    
   }
 
   clearCart(): void {

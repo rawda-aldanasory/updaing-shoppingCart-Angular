@@ -24,7 +24,7 @@ export class CartComponent implements OnInit {
     this.cartService.getCartItems().subscribe(items => {
       this.cartItems = items;
     });
-    
+
     this.cartService.getTotal().subscribe(total => {
       this.total = total;
     });
@@ -33,7 +33,6 @@ export class CartComponent implements OnInit {
   proceedToCheckout(): void {
     this.router.navigate(['/checkout']);
   }
-    
 
   updateQuantity(item: CartItem, newQuantity: number): void {
     if (newQuantity > 0 && newQuantity <= item.product.quantity) {
@@ -41,12 +40,22 @@ export class CartComponent implements OnInit {
     }
   }
 
+  // removeItem(productId: string): void {
+  //   const item = this.cartItems.find(i => i.product.id === productId);
+  //   if (item) {
+  //     this.cartService.removeFromCart(productId);
+  //     item.product.quantity += item.quantity;
+  //   }
+  // }
+
+  // handle remove logic
   removeItem(productId: string): void {
-    const item = this.cartItems.find(i => i.product.id === productId);
-    if (item) {
-      this.cartService.removeFromCart(productId);
-      item.product.quantity += item.quantity;
+    this.cartService.removeFromCart(productId);
+    const index = this.cartItems.findIndex(item => item.product.id === productId);
+    if (index!== -1) {
+      this.cartItems.splice(index, 1);
     }
+    this.cartService.getTotal();
   }
-  
+
 }

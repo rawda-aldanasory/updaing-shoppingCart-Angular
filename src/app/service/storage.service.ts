@@ -21,6 +21,7 @@ export class StorageService {
         return item ? JSON.parse(item) : null;
       } catch (e) {
         console.error('Error reading from localStorage', e);
+        return null;
       }
     }
     return null;
