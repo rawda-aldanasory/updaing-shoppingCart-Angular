@@ -1,0 +1,31 @@
+<div class="image-upload">
+    <div 
+      class="upload-area"
+      [class.has-image]="previewUrl"
+      (dragover)="onDragOver($event)"
+      (dragleave)="onDragLeave($event)"
+      (drop)="onDrop($event)"
+    >
+      <input
+        type="file"
+        #fileInput
+        (change)="onFileSelected($event)"
+        accept="image/*"
+        class="file-input"
+      >
+      
+      <!-- <div class="upload-content" *ngIf="!previewUrl"> -->
+      <div class="upload-content">
+        <span class="upload-icon">📁</span>
+        <p>Drag and drop an image or click to select</p>
+      </div>
+      
+      <!-- <img *ngIf="previewUrl" [src]="previewUrl" alt="Preview" class="preview-image"> -->
+      <img [src]="previewUrl" alt="Preview" class="preview-image">
+    </div>
+    
+    <!-- <button *ngIf="previewUrl" (click)="removeImage()" class="remove-btn"> -->
+    <button (click)="removeImage()" class="remove-btn">
+      Remove Image
+    </button>
+  </div>

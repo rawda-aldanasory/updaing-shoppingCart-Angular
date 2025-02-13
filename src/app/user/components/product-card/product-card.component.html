@@ -1,0 +1,32 @@
+<div class="product-card">
+  <img [src]="product.imageUrl" [alt]="product.name" class="product-image">
+  <div class="product-info">
+    <h3>{{ product.name }}</h3>
+    <p class="description">{{ product.description }}</p>
+    <p class="price">${{ product.price.toFixed(2) }}</p>
+    
+    <p class="stock" [ngClass]="getStockStatusClass()">
+      {{ getStockMessage() }}
+    </p>
+    
+    <div class="quantity-controls" *ngIf="product.quantity > 0">
+      <button (click)="decreaseQuantity()" [disabled]="selectedQuantity === 0">-</button>
+      <span>{{ selectedQuantity }}</span>
+      <button (click)="increaseQuantity()" [disabled]="selectedQuantity === product.quantity">+</button>
+    </div>
+    
+    <div class="button-group">
+      <button 
+        class="add-to-cart"
+        (click)="addToCart()"
+        [disabled]="selectedQuantity === 0 || product.quantity === 0">
+        {{ product.quantity === 0 ? 'Out of Stock' : 'Add to Cart' }}
+      </button>
+      <button 
+        class="view-details"
+        (click)="viewDetails()">
+        View Details
+      </button>
+    </div>
+  </div>
+</div>

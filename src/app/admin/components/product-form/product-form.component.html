@@ -1,0 +1,52 @@
+<div class="product-form-container">
+    <h2>{{ isEditMode ? 'Edit Product' : 'Add New Product' }}</h2>
+    
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Product Name</label>
+        <input id="name" type="text" formControlName="name">
+        <div class="error" *ngIf="productForm.get('name')?.touched && productForm.get('name')?.invalid">
+          Product name is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description"></textarea>
+        <div class="error" *ngIf="productForm.get('description')?.touched && productForm.get('description')?.invalid">
+          Description is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="price">Price</label>
+        <input id="price" type="number" formControlName="price" step="0.01">
+        <div class="error" *ngIf="productForm.get('price')?.touched && productForm.get('price')?.invalid">
+          Valid price is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="quantity">Quantity</label>
+        <input id="quantity" type="number" formControlName="quantity">
+        <div class="error" *ngIf="productForm.get('quantity')?.touched && productForm.get('quantity')?.invalid">
+          Valid quantity is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="imageUrl">Image URL</label>
+        <input id="imageUrl" type="text" formControlName="imageUrl">
+        <div class="error" *ngIf="productForm.get('imageUrl')?.touched && productForm.get('imageUrl')?.invalid">
+          Image URL is required
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" routerLink="/admin" class="cancel-btn">Cancel</button>
+        <button type="submit" [disabled]="productForm.invalid" class="submit-btn">
+          {{ isEditMode ? 'Update' : 'Create' }} Product
+        </button>
+      </div>
+    </form>
+  </div>

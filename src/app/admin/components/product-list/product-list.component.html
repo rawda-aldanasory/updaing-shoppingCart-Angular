@@ -1,0 +1,17 @@
+<div class="product-list">
+    <div class="product-grid">
+      <div class="product-item" *ngFor="let product of products">
+        <img [src]="product.imageUrl" [alt]="product.name">
+        <div class="product-details">
+          <h3>{{ product.name }}</h3>
+          <p class="price">${{ product.price.toFixed(2) }}</p>
+          <p class="stock">Stock: {{ product.quantity }}</p>
+        </div>
+        <div class="product-actions">
+          <button class="edit-btn" [routerLink]="['edit', product.id]">Edit</button>
+          <button class="delete-btn" (click)="deleteProduct(product.id)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
