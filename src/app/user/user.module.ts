@@ -16,7 +16,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ProductListComponent, 
     ProductCardComponent,
-    CartComponent
+    CartComponent,
+    CommonModule
   ]
 })
 export class UserModule { }

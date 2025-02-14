@@ -34,23 +34,13 @@ export class CartComponent implements OnInit {
     this.router.navigate(['/checkout']);
   }
 
-  updateQuantity(item: CartItem, newQuantity: number): void {
+  updateItemQuantity(item: CartItem, newQuantity: number): void {
     if (newQuantity > 0 && newQuantity <= item.product.quantity) {
-      this.cartService.updateQuantity(item.product.id, newQuantity);
+      this.cartService.updateItemQuantity(item.product.id, newQuantity);
     }
   }
-
-  // removeItem(productId: string): void {
-  //   const item = this.cartItems.find(i => i.product.id === productId);
-  //   if (item) {
-  //     this.cartService.removeFromCart(productId);
-  //     item.product.quantity += item.quantity;
-  //   }
-  // }
-
-  // handle remove logic
   removeItem(productId: string): void {
-    this.cartService.removeFromCart(productId);
+    this.cartService.removeItem(productId);
     const index = this.cartItems.findIndex(item => item.product.id === productId);
     if (index!== -1) {
       this.cartItems.splice(index, 1);
